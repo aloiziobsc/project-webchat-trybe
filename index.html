@@ -3,18 +3,26 @@
   <meta charset="UTF-8">
   <title>Projeto WebChat</title>
   <style>
+    body {
+      background-image: url("https://mr2grafica.com.br/wp-content/uploads/2013/11/Fundo-whatsapp.jpg");
+      font-family: Arial, Helvetica, sans-serif;
+    }
     #input-nickName {
       float: left;
       width: 45%
     }
     #div-nickName {
       border: 1px solid black;
+      border-radius: 10px;
+      background-image: url("https://i.pinimg.com/originals/cf/14/0d/cf140dac517f37fc801b6b91aaf76fea.png");
       width: 45%;
       float: left;
       margin: 5px;
     }
     #div-mensagens {
       border: 1px solid black;
+      border-radius: 10px;
+      background-image: url("https://i.pinimg.com/originals/cf/14/0d/cf140dac517f37fc801b6b91aaf76fea.png");
       float: right;
       width: 50%
     }
@@ -32,11 +40,25 @@
       position: absolute;
       margin: 5px;
     }
+    #title {
+      display: flex;
+      color: white;
+    }
+    #title img{
+      max-width:50px;
+      max-height:50px;
+      width: auto;
+      height: auto;
+      margin: 10px;
+    }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
 </head>
 <body onload="onLoadFunction()">
-  <h1>Iniciando WebChat</h1>
+  <div id="title">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/479px-WhatsApp.svg.png">
+    <h1>WebChat</h1>
+  </div>
   <div id="input-nickName">
     <input id="nickNameInput" autoComplete="off" placeholder="Insira seu NickName" data-testid="nickname-box"/>
     <button id="nickNameButton" data-testid="nickname-button">Salvar NickName</button>
@@ -113,7 +135,6 @@
       if (onChat.length > 1) {
         orderOnChat = orderArray(onChat);
       }
-      // console.log(orderOnChat)
 
       orderOnChat.map(({id, nickName}) => {
         const newLiNickName = document.createElement('li');
@@ -127,12 +148,8 @@
     buttonMensage.addEventListener('click', () => {
       let user = JSON.parse(sessionStorage.getItem('user'));
       let { nickName } = user;
-      // 1
-      // console.log(' Front 1', user);
       let newMsg = inputMessage.value;
       let info = { chatMessage: newMsg, nickname: nickName };
-      // 2
-      // console.log('Front 2', user, info);
       socket.emit('message', info);
       inputMessage.value = '';
     })
@@ -150,7 +167,6 @@
     socket.on('conexao', (onChat) => createNickNames(onChat));
     socket.on('alterNickName', (onChat) => createNickNames(onChat));
     socket.on('logoutUser', (onChat) => createNickNames(onChat));
-    
   </script>
 </body>
 </html>

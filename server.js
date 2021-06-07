@@ -34,7 +34,6 @@ const dbMessage = async (obj) => {
 
 const messageFunction = (info) => {
   const { nickname, chatMessage } = info;
-  console.log('*****Server*******', info);
   const now = new Date();
   const dt = `${addLeftZero(now.getDate())}-${addLeftZero(now.getMonth())}-${now.getFullYear()}`;
   const obj = {
@@ -54,7 +53,6 @@ const disconectFunction = (id) => {
 const connectFunction = (id) => {
   const obj = { id, nickName: id.toString().substr(0, 16) };
   onChat.push(obj);
-  console.log('****Onchat****', onChat);
   return onChat;
 };
 
